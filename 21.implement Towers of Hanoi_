@@ -1,0 +1,20 @@
+% Define the hanoi predicate to solve the problem
+hanoi(1, Source, Destination, _) :- 
+    move(Source, Destination).  % Move the single disk directly
+
+hanoi(N, Source, Destination, Auxiliary) :- 
+    N > 1, 
+    M is N - 1, 
+    hanoi(M, Source, Auxiliary, Destination),  % Move N-1 disks from Source to Auxiliary using Destination
+    move(Source, Destination),                 % Move the Nth disk from Source to Destination
+    hanoi(M, Auxiliary, Destination, Source).  % Move N-1 disks from Auxiliary to Destination using Source
+
+% Define the move predicate to display the move action
+move(X, Y) :-
+    write('Move disk from '), 
+    write(X), 
+    write(' to '), 
+    write(Y), 
+    nl.
+
+% To solve the problem for 3 disks, call: hanoi(3, left, center, right).
